@@ -1,0 +1,223 @@
+/* LoginScreen.module.css */
+
+/* Base container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Full height */
+  background: linear-gradient(to bottom, #2c3e50, #3498db); /* Example gradient blue */
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in width/height calculation */
+  font-family: sans-serif; /* Choose a suitable font */
+  color: #333; /* Default text color */
+}
+
+/* Header styling */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  color: #ffffff; /* White text for header */
+}
+
+.logoIcon {
+  margin-right: 15px;
+  color: #ffffff; /* Or a specific logo color */
+}
+
+.appName {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.appSubtitle {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: lighter;
+}
+
+/* Main content area below header */
+.mainContent {
+    width: 100%;
+    max-width: 400px; /* Limit width for larger screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Login form container */
+.loginForm {
+  background-color: #ffffff;
+  padding: 30px 25px;
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items inside the form */
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Input group styling */
+.inputGroup {
+  position: relative; /* Needed for icon positioning */
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7; /* Light grey background for input area */
+  border-radius: 8px;
+  border: 1px solid #e0e0e0; /* Subtle border */
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888; /* Icon color */
+  font-size: 1.2em;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 12px 12px 40px; /* Left padding for icon */
+  border: none; /* Remove default border */
+  background-color: transparent; /* Use parent background */
+  border-radius: 8px;
+  font-size: 1em;
+  box-sizing: border-box; /* Include padding in width */
+  color: #333;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(42, 111, 151, 0.3); /* Focus indicator */
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+/* Password visibility toggle */
+.visibilityToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  font-size: 1.3em;
+  padding: 5px; /* Easier click target */
+  display: flex; /* Helps center icon */
+  align-items: center; /* Helps center icon */
+}
+
+.visibilityToggle:focus {
+    outline: none;
+}
+
+/* Forgot password link */
+.forgotPassword {
+  font-size: 0.9em;
+  color: #2a6f97; /* Link blue color */
+  text-decoration: none;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+/* Submit button */
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #2a6f97, #1e4c7a); /* Button gradient */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:hover {
+  background: linear-gradient(to right, #1e4c7a, #2a6f97); /* Darker gradient on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submitButton:active {
+    transform: translateY(1px); /* Slight press effect */
+}
+
+/* Sign-up text */
+.signupText {
+  font-size: 0.9em;
+  color: #666;
+  text-align: center;
+  margin: 0; /* Remove default paragraph margin */
+}
+
+.signupLink {
+  color: #2a6f97; /* Link blue color */
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}
+
+/* Info boxes below form */
+.infoBoxes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between info boxes */
+}
+
+.infoBox {
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  color: #ffffff; /* White text */
+  font-size: 0.95em;
+}
+
+.infoIcon {
+  font-size: 1.5em;
+  margin-right: 12px;
+  color: #ffffff; /* Or slightly different shade */
+}
+
+.checkbox {
+  margin-left: 5px;
+}
