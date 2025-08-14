@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { UsuarioContext } from '../UsuarioContext'
 import styles from './Login.module.css';
 import logo from '../assets/logo2.png';
 import { enderecoServidor } from '../utils'
 import { useNavigate } from 'react-router-dom';
 
-// Import icons (using react-icons as an example)
-// You might need to install it: npm install react-icons
 import { MdEmail, MdLock, MdVisibility, MdVisibilityOff, MdBarChart, MdNotifications, MdTrendingUp } from 'react-icons/md';
-import { useEffect } from 'react';
 
 function Login() {
+	const { dadosUsuario, setDadosUsuario} = useContext(UsuarioContext);
+
 	const [email, setEmail] = useState('');
 	const [senha, setSenha] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +38,7 @@ function Login() {
 			const dados = await resposta.json();
 			if (resposta.ok) {
 				localStorage.setItem('UsuarioLogado', JSON.stringify({ ...dados, lembrar }));
+				setDadosUsuario(dados); //Gravando os dados do usuário no contexto
 				navigate("/principal")
 			} else {
 				throw new Error(dados.message || 'Erro ao fazer login');
@@ -61,6 +62,7 @@ function Login() {
             if (usuarioLogado){
                 const usuario = JSON.parse(usuarioLogado);
                 if (usuario.lembrar == true){
+					setDadosUsuario(dados);
                     navigate('/principal')
                 }
             }    
