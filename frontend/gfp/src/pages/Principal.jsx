@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 
 export default function Principal() {
-    const [usuario, setUsuario] = useState(null);
+    const [usuario, setUsuario] = useState({});
     const navigate = useNavigate();
     useEffect(() => {
         const buscarUsuario = async () => {

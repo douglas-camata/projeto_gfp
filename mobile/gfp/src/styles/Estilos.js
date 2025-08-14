@@ -10,9 +10,9 @@ export const corBranco = '#f2f2f2';
 
 
 const Estilos = {
-    conteudo : {
-        flex : 1,
-        width : '100%',
+    conteudo: {
+        flex: 1,
+        width: '100%',
         backgroundColor: corFundo
     },
     inputContainer: {
@@ -69,7 +69,7 @@ const Estilos = {
         flex: 1,
         backgroundColor: corSecundaria,
     },
-    conteudoCorpo:{
+    conteudoCorpo: {
         flex: 1,
         backgroundColor: corBranco,
         borderTopLeftRadius: 25,
@@ -92,7 +92,7 @@ const Estilos = {
         flex: 1,
     },
     nomeLista: {
-        fontSize: 16, 
+        fontSize: 16,
         fontWeight: 'bold',
         color: corSecundaria,
     },
@@ -104,13 +104,65 @@ const Estilos = {
         borderRadius: 5,
         padding: 10,
         backgroundColor: '#fff',
+    },
+
+    modalFundo: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    },
+    modalConteudo: {
+        backgroundColor: corSecundaria,
+        padding: 16,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+    },
+    modalTitulo: {
+        fontSize: 18,
+        color: corBranco,
+        marginBottom: 16,
+    },
+    inputModal: {
+        backgroundColor: corBranco,
+        flex: 1,
+        padding: 8,
+        borderRadius: 8,
+    },
+    modalBotoes: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 16,
+    },
+    corBotao: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        margin: 8,
+        borderWidth: 2,
+        borderColor: '#fff',
+    },
+    iconeBotao: {
+        width: 40,
+        height: 40,
+        padding: 8,
+        backgroundColor: "#333",
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }, 
+    SeletorContainer:{
+        backgroundColor: '#1e1e1e',
+        padding: 16,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+    },
+    listaModal: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: 8
     }
 
-
-
-    
-
-    
 }
 
 export default Estilos; 

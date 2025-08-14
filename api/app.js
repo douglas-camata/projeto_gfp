@@ -19,14 +19,15 @@ app.use(express.json());
 app.use(cors());
 
 
-// app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (req, res) => {
-    res.send("API rodando!");
+    // res.send("API rodando!");    
+    res.redirect('/api-docs');
 });
 
 // Rotas de Usuários {autenticarToken}
-app.get("/usuarios", autenticarToken, rotasUsuarios.listarUsuarios);
+app.get("/usuarios",  rotasUsuarios.listarUsuarios);
 app.post("/usuarios", rotasUsuarios.novoUsuario);
 app.post('/usuarios/login', rotasUsuarios.login);
 app.delete('/usuarios/:id', autenticarToken, rotasUsuarios.deletarUsuario);

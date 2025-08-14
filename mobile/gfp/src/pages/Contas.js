@@ -3,7 +3,7 @@ import  {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Estilos, { corPrincipal } from '../styles/Estilos';
-import {enderecoServidor} from '../utils';
+import {enderecoServidor, buscarUsuarioLogado} from '../utils';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function Contas({navigation}) {
@@ -15,7 +15,7 @@ export default function Contas({navigation}) {
 
     const buscarDadosAPI = async () => {
         try {
-            console.log('usuario', usuario);
+            setUsuario(await buscarUsuarioLogado()); 
             
             const resposta = await fetch(`${enderecoServidor}/contas`, {
                 method: 'GET',
@@ -34,7 +34,7 @@ export default function Contas({navigation}) {
 
     //Executa essa função quando o componente é criado [] vazio
     useEffect(() => {
-        buscarUsuarioLogado();
+        buscarDadosAPI();
     }, [])
 
     //Executa essa função quando o usuario é alterado
@@ -42,19 +42,12 @@ export default function Contas({navigation}) {
         if (isFocused == true) {
             buscarDadosAPI();
         }
-    }, [usuario, isFocused])
-
-    const buscarUsuarioLogado = async  () => {
-        const usuarioLogado = await AsyncStorage.getItem('UsuarioLogado');
-        if (usuarioLogado) {
-            setUsuario(JSON.parse(usuarioLogado));
-        } else {
-            navigation.navigate('Login');
-        }
-    }
+    }, [isFocused])
 
     const botaoExcluir = async (id) => {
         try {
+            if (!confirm("Tem certeza que deseja excluir esta conta?")) return;
+
             const resposta = await fetch(`${enderecoServidor}/contas/${id}`, {
                 method: 'DELETE',
                 headers: {
@@ -104,7 +97,6 @@ export default function Contas({navigation}) {
     return (
         <View style={Estilos.conteudoHeader}>
             <View style={Estilos.conteudoCorpo}>
-                <Text>Contas</Text>
                 <FlatList 
                     data={dadosLista}
                     renderItem={exibirItemLista}

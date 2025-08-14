@@ -35,6 +35,17 @@ export default function CadContas({ navigation, route }) {
         }
     }
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity onPress={botaoSalvar}>
+                    <MaterialIcons name="save" size={28} color="#fff"
+                        style={{ marginRight: 15 }} />
+                </TouchableOpacity>
+            )
+        })
+    }, [navigation, inputNome, inputTipo, inputSaldo, inputContaPadrao])
+
     const botaoSalvar = async () => {
         try {
             const dados = {
@@ -69,17 +80,6 @@ export default function CadContas({ navigation, route }) {
             console.error('Erro ao salvar conta:', error)
         }
     }
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <TouchableOpacity onPress={botaoSalvar}>
-                    <MaterialIcons name="save" size={28} color="#fff"
-                        style={{ marginRight: 15 }} />
-                </TouchableOpacity>
-            )
-        })
-    }, [navigation, inputNome, inputTipo, inputSaldo, inputContaPadrao])
 
     return (
         <View style={Estilos.conteudoHeader}>

@@ -71,11 +71,11 @@ class rotasCategorias {
 
     static async atualizarTodosCampos(req, res) {
         const { id } = req.params;
-        const { nome, tipo_transacao, id_usuario } = req.body;
+        const { nome, tipo_transacao, id_usuario, cor, icone } = req.body;
         try {
             const categoria = await BD.query(
-                `UPDATE categorias SET nome = $1, tipo_transacao = $2, id_usuario = $3 WHERE id_usuario = $4 RETURNING *`, // comando para atualizar o usuario
-                [nome, tipo_transacao, id_usuario, id] // comando para atualizar o usuario
+                `UPDATE categorias SET nome = $1, tipo_transacao = $2, id_usuario = $3, icone = $4, cor = $5 WHERE id_categoria = $6 RETURNING *`, // comando para atualizar o usuario
+                [nome, tipo_transacao, id_usuario, icone, cor, id] // comando para atualizar o usuario
             )
             return res.status(200).json(categoria.rows[0]);
         } catch (error) {
