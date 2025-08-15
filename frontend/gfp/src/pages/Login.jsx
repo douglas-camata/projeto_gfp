@@ -10,8 +10,8 @@ import { MdEmail, MdLock, MdVisibility, MdVisibilityOff, MdBarChart, MdNotificat
 function Login() {
 	const { dadosUsuario, setDadosUsuario} = useContext(UsuarioContext);
 
-	const [email, setEmail] = useState('');
-	const [senha, setSenha] = useState('');
+	const [email, setEmail] = useState('sesi@sesi.br');
+	const [senha, setSenha] = useState('123');
 	const [showPassword, setShowPassword] = useState(false);
 	const [lembrar, setLembrar] = useState(false);
 
