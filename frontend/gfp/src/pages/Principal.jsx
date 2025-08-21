@@ -8,6 +8,7 @@ import {
     MdMenu,
     MdOutlineLocalOffer, MdPeople
 } from 'react-icons/md';
+import Contas from './Contas';
 
 export default function Principal() {
     const { dadosUsuario, setDadosUsuario, carregando } = useContext(UsuarioContext);
@@ -147,6 +148,7 @@ export default function Principal() {
                     <Routes>
                         <Route path='/' element={<Dashboard />} />
                         <Route path='/dashboard' element={<Dashboard />} />
+                        <Route path='/contas' element={<Contas />} />
                     </Routes>
                 </main>
 
