@@ -20,7 +20,7 @@ class rotasContas {
 
 	static async listarContas(req, res) {
 		try {
-			const contas = await BD.query("SELECT * FROM contas where ativo = true");
+			const contas = await BD.query("SELECT * FROM contas where ativo = true order by nome");
 			res.status(200).json(contas.rows);
 		} catch (error) {
 			console.error("Erro ao listar locais:", error);

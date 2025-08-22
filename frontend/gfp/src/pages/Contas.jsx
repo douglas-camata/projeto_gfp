@@ -62,9 +62,7 @@ export default function Contas() {
                 }
             });
 
-            if (resposta.ok) {
-                buscarDadosAPI();
-            }
+            if (resposta.ok) buscarDadosAPI();
 
         } catch (error) {
             console.error('Erro ao excluir:', error);
@@ -82,10 +80,9 @@ export default function Contas() {
                     <p className='text-sm text-gray-500'>{ nomesTipoConta[item.tipo_conta] }</p>
                 </div>
                 <div className='flex items-center space-x-2'>
-                    <button className={Estilos.botaoAlterar}> <MdEdit className='h-6 w-6' /></button>
+                    <button className={Estilos.botaoAlterar} onClick={() => navigate('/cadcontas', { state: { itemAlterar: item } } )}> <MdEdit className='h-6 w-6' /></button>
                     <button className={Estilos.botaoExcluir} onClick={() => botaoExcluir(item.id_conta)} > <MdDelete className='h-6 w-6' /></button>
                 </div>
-
             </div>
         )
     }
@@ -105,10 +102,7 @@ export default function Contas() {
                 <section>
                     {dadosLista.map(item => exibirItemLista(item))}
                 </section>
-
             </section>
-
-
         </div>
     )
 }

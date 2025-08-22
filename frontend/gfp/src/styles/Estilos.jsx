@@ -14,6 +14,10 @@ const Estilos = {
     linhaListagem: 'flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow my-2',
     botaoAlterar: 'flex items-center p-1 text-cyan-700 bg-cyan-100 hover:bg-cyan-200 rounded-md transition-colors',
     botaoExcluir: 'flex items-center p-1 text-red-700 bg-red-100 hover:bg-red-200 rounded-md transition-colors',
+    labelCadastro: 'block mb-1 font-medium text-gray-700',
+    inputCadastro: 'w-full border border-gray-300 px-4 py-2 rounded-lg shadow-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500',
+    botaoOutline: 'flex items-center gap-2 px-4 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-200',
+    botao: 'flex items-center gap-2 px-4 py-2 border text-white bg-cyan-600 rounded-lg hover:bg-cyan-700',
 }
 
 export default Estilos;

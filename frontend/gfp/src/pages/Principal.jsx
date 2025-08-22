@@ -9,6 +9,7 @@ import {
     MdOutlineLocalOffer, MdPeople
 } from 'react-icons/md';
 import Contas from './Contas';
+import CadContas from './CadContas';
 
 export default function Principal() {
     const { dadosUsuario, setDadosUsuario, carregando } = useContext(UsuarioContext);
@@ -149,6 +150,7 @@ export default function Principal() {
                         <Route path='/' element={<Dashboard />} />
                         <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/contas' element={<Contas />} />
+                        <Route path='/cadcontas' element={<CadContas />} />
                     </Routes>
                 </main>
 
