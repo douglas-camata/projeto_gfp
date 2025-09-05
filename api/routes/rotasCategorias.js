@@ -4,7 +4,7 @@ const SECRET_KEY = 'chave_api_gfp';
 
 class rotasCategorias {
     static async novaCategoria(req, res) {
-        const { nome, tipo_transacao, id_usuario, cor, icone } = req.body;
+        const { nome, tipo_transacao, gasto_fixo, descricao, id_usuario, cor, icone } = req.body;
         // Validando dados
         if (!nome || !tipo_transacao || !id_usuario) {
             return res.status(400).json({ message: "Todos os campos são obrigatórios!" });
@@ -12,9 +12,9 @@ class rotasCategorias {
 
         try {
             const categoria = await BD.query(`
-                    INSERT INTO categorias (nome, tipo_transacao, id_usuario, cor, icone) 
-                        VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-                [nome, tipo_transacao, id_usuario, cor, icone]
+                    INSERT INTO categorias (nome, tipo_transacao, id_usuario, cor, icone, gasto_fixo, descricao) 
+                        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+                [nome, tipo_transacao, id_usuario, cor, icone, gasto_fixo, descricao]
             );
 
             res.status(201).json("Categoria Cadastrada");
@@ -27,10 +27,7 @@ class rotasCategorias {
     static async listarCategorias(req, res) {
         try {
             const categoria = await BD.query(`
-                    SELECT ct. *, u.nome AS nome_usuario FROM categorias AS ct 
-                        LEFT JOIN usuarios u ON ct.id_usuario = u.id_usuario 
-                    WHERE ct.ativo = true
-                    ORDER BY ct.id_categoria DESC`);
+                    SELECT * FROM categorias WHERE ativo = true ORDER BY nome`);
             res.status(200).json(categoria.rows);
         } catch (error) {
             console.error("Erro ao listar categorias:", error);
@@ -71,11 +68,11 @@ class rotasCategorias {
 
     static async atualizarTodosCampos(req, res) {
         const { id } = req.params;
-        const { nome, tipo_transacao, id_usuario, cor, icone } = req.body;
+        const { nome, tipo_transacao, id_usuario, cor, icone, descricao, gasto_fixo } = req.body;
         try {
             const categoria = await BD.query(
-                `UPDATE categorias SET nome = $1, tipo_transacao = $2, id_usuario = $3, icone = $4, cor = $5 WHERE id_categoria = $6 RETURNING *`, // comando para atualizar o usuario
-                [nome, tipo_transacao, id_usuario, icone, cor, id] // comando para atualizar o usuario
+                `UPDATE categorias SET nome = $1, tipo_transacao = $2, id_usuario = $3, icone = $4, cor = $5, descricao = $7, gasto_fixo = $8 WHERE id_categoria = $6 RETURNING *`, // comando para atualizar o usuario
+                [nome, tipo_transacao, id_usuario, icone, cor, id, descricao, gasto_fixo] // comando para atualizar o usuario
             )
             return res.status(200).json(categoria.rows[0]);
         } catch (error) {

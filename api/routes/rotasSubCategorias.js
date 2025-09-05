@@ -39,7 +39,7 @@ class rotasSubCategorias {
 		const { id } = req.params;
 		try {
 			// Chama o metodo na classe usuario para deletar um usuario
-			const subcategoria = await BD.query(
+			await BD.query(
 				`UPDATE subcategorias SET ativo = false WHERE id_subcategoria = $1 `,
 				[id]
 			);
@@ -55,12 +55,10 @@ class rotasSubCategorias {
 
 		try {
 			const subcategoria = await BD.query(
-				`SELECT sct. *, ct.nome AS nome_categoria FROM subcategorias AS sct 
-                    LEFT JOIN categorias ct ON sct.id_categoria = ct.id_categoria WHERE  sct.id_subcategoria = $1
-                ORDER BY sct.id_subcategoria `,
+				`SELECT * FROM subcategorias WHERE id_categoria = $1 and ativo = true ORDER BY nome `,
 				[id]
-			);
-			return res.status(200).json(subcategoria.rows[0]);
+			);			
+			return res.status(200).json(subcategoria.rows);
 		} catch (error) {
 			console.error("Erro ao consultar sub-categoria:", error);
 			res.status(500).json({ message: "Erro ao consultar sub-categoria", error: error.message });

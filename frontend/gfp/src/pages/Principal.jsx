@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { UsuarioContext } from '../UsuarioContext'
 import { useNavigate, Link, Routes, Route, useLocation } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import logo from '../assets/logo2.png'
 import {
     MdAdd, MdCached, MdClose, MdCreditCard, MdGridView, MdLogout,
-    MdMenu,
-    MdOutlineLocalOffer, MdPeople
+    MdMenu, MdOutlineLocalOffer, MdPeople
 } from 'react-icons/md';
 import Contas from './Contas';
 import CadContas from './CadContas';
+import Categorias from './Categorias';
 
 export default function Principal() {
     const { dadosUsuario, setDadosUsuario, carregando } = useContext(UsuarioContext);
@@ -151,6 +151,7 @@ export default function Principal() {
                         <Route path='/dashboard' element={<Dashboard />} />
                         <Route path='/contas' element={<Contas />} />
                         <Route path='/cadcontas' element={<CadContas />} />
+                        <Route path='/categorias' element={<Categorias />} />
                     </Routes>
                 </main>
 

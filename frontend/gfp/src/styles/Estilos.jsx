@@ -18,6 +18,9 @@ const Estilos = {
     inputCadastro: 'w-full border border-gray-300 px-4 py-2 rounded-lg shadow-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500',
     botaoOutline: 'flex items-center gap-2 px-4 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-200',
     botao: 'flex items-center gap-2 px-4 py-2 border text-white bg-cyan-600 rounded-lg hover:bg-cyan-700',
+    listaItensModalCategorias: 'flex gap-2 justify-center flex-wrap',
+    iconeCorBotaoModal:`w-10 h-10 p-1 rounded-full text-white flex items-center justify-center 
+                            cursor-pointer hover:scale-110 transition-transform`,
 }
 
 export default Estilos;
