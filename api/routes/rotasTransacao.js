@@ -2,20 +2,15 @@ import { BD } from "../db.js";
 
 class rotasTransacao {
   static async novaTransacao(req, res) {
-    const { valor, descricao, data_transacao, data_vencimento, data_pagamento, tipo_transacao, id_local_transacao, id_categoria, id_subcategoria, id_usuario, num_parcelas, parcela_atual } = req.body;
-    // Validando dados
-    if (!valor || !descricao || !data_transacao || !data_vencimento || !data_pagamento || !tipo_transacao || !id_local_transacao || !id_categoria || !id_subcategoria || !id_usuario || !num_parcelas || !parcela_atual) {
-      return res.status(400).json({ message: "Todos os campos são obrigatórios!" });
-    }
-
+    const { valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario} = req.body;
     try {
       const transacao = await BD.query(`
-                INSERT INTO transacoes (valor, descricao, data_transacao, data_vencimento, data_pagamento, tipo_transacao, id_local_transacao, id_categoria, id_subcategoria, id_usuario, num_parcelas, parcela_atual)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
-        [valor, descricao, data_transacao, data_vencimento, data_pagamento, tipo_transacao, id_local_transacao, id_categoria, id_subcategoria, id_usuario, num_parcelas, parcela_atual]
+                INSERT INTO transacoes (valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+        [valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario]
       );
 
-      res.status(201).json("Transação Cadastrada");
+      res.status(201).json(transacao.rows[0]);
     } catch (error) {
       console.error("Erro ao criar transação:", error);
       res.status(500).json({ message: "Erro ao criar transação", error: error.message });
@@ -28,7 +23,7 @@ class rotasTransacao {
             SELECT t. *, u.nome AS nome_usuario, lt.nome AS nome_localTransacao, ct.nome AS nome_categoria, sct.nome AS nome_subcategoria 
             	FROM transacoes AS t 
             	LEFT JOIN usuarios u ON t.id_usuario = u.id_usuario 
-            	JOIN local_transacao lt on t.id_local_transacao = lt.id_local_transacao
+            	JOIN contas lt on t.id_conta = lt.id_conta
             	JOIN categorias ct on t.id_categoria = ct.id_categoria
             	JOIN subcategorias sct on t.id_subcategoria = sct.id_subcategoria
             ORDER BY t.valor DESC`);

@@ -34,6 +34,11 @@ const swaggerDefinition = {
       description:
         "Rotas para cadastro, leitura, atualização e desativação de subcategorias",
     },
+    {
+      name: "Transações",
+      description:
+        "Rotas para as transações",
+    },
   ],
   components: {
     securitySchemes: {
@@ -856,7 +861,104 @@ const swaggerDefinition = {
                 }
             }
         }
-    }
+    },
+    "/transacoes": {
+      post: {
+        tags: ["Transações"],
+        summary: "Nova Transação",
+        description: "Rota para cadastrar nova transação",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+        
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                required: [
+                  "valor",
+                  "tipo",
+                ],
+                properties: {
+                  descricao: { type: "string", example: "Restaurante Fogão de Lenha" },
+                  valor: { type: "number", example: 100.50 },
+                  data_vencimento: { type: "date", example: '2025-01-01' },
+                  data_pagamento: { type: "date", example: '2025-01-01' },
+                  tipo: { type: "string", example: "ENTRADA" },
+                  id_conta: { type: "integer", example: 1 },
+                  id_categoria: { type: "integer", example: 1 },
+                  id_subcategoria: { type: "integer", example: 1 },
+                  id_usuario: { type: "integer", example: 1 },
+                  
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "Transação cadastrada com sucesso",
+          },
+          400: {
+            description: "Erro ao cadastrar Transação",
+          },
+          500: {
+            description: "Erro interno do servidor",
+          },
+        },
+      },
+      get: {
+        tags: ["Transações"],
+        summary: "Listar Transações",
+        description: "Rota para listar todas as Transações",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
+
+        responses: {
+          200: {
+            description: "Lista de Transações",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id_transacao: { type: "integer", example: 1 },
+                      descricao: { type: "string", example: "Restaurante Fogão de Lenha" },
+                      valor: { type: "number", example: 100.50 },
+                      data_vencimento: { type: "date", example: '2025-01-01' },
+                      data_pagamento: { type: "date", example: '2025-01-01' },
+                      tipo: { type: "string", example: "ENTRADA" },
+                      id_conta: { type: "integer", example: 1 },
+                      id_categoria: { type: "integer", example: 1 },
+                      id_subcategoria: { type: "integer", example: 1 },
+                      id_usuario: { type: "integer", example: 1 },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          200: {
+            description: "Transações listada com sucesso",
+          },
+          400: {
+            description: "Erro ao listar Transações",
+          },
+          500: {
+            description: "Erro interno do servidor",
+          },
+        },
+      }
+    },
   },
 };
 

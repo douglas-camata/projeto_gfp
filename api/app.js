@@ -62,12 +62,12 @@ app.put('/contas/:id', autenticarToken, rotasContas.atualizarTodosCampos);
 app.patch('/contas/:id', autenticarToken, rotasContas.atualizar);
 
 // Rotas de transação {autenticarToken}
-app.get('/transacao', autenticarToken, rotasTransacao.listarTransacao);
-app.post('/transacao', autenticarToken, rotasTransacao.novaTransacao);
-app.delete('/transacao/:id', autenticarToken, rotasTransacao.deletarTransacao);
-app.get('/transacao/:id', autenticarToken, rotasTransacao.consultaPorId);
-app.put('/transacao/:id', autenticarToken, rotasTransacao.atualizarTodosCampos);
-app.patch('/transacao/:id', autenticarToken, rotasTransacao.atualizar);
+app.get('/transacoes', autenticarToken, rotasTransacao.listarTransacao);
+app.post('/transacoes', autenticarToken, rotasTransacao.novaTransacao);
+app.delete('/transacoes/:id', autenticarToken, rotasTransacao.deletarTransacao);
+app.get('/transacoes/:id', autenticarToken, rotasTransacao.consultaPorId);
+app.put('/transacoes/:id', autenticarToken, rotasTransacao.atualizarTodosCampos);
+app.patch('/transacoes/:id', autenticarToken, rotasTransacao.atualizar);
 
 const porta = 3000;
 app.listen(porta, () => {

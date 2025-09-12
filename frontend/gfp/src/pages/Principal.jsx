@@ -10,11 +10,17 @@ import {
 import Contas from './Contas';
 import CadContas from './CadContas';
 import Categorias from './Categorias';
+import TransacaoModal from './TransacaoModal';
 
 export default function Principal() {
     const { dadosUsuario, setDadosUsuario, carregando } = useContext(UsuarioContext);
 
     const [menuAberto, setMenuAberto] = useState(false);
+    const [modalTransacaoAberto, setModalTransacaoAberto] = useState(false);
+    
+    const fecharTransacaoModal = () => {
+        setModalTransacaoAberto(false);
+    }
 
     const navigate = useNavigate();
     const location = useLocation(); // Obter a rota atual
@@ -112,7 +118,7 @@ export default function Principal() {
                 <div className='p-4 lg:p-6 border-t border-slate-700 bg-cyan-600
                         hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg m-4
                 '>
-                    <button className='flex w-full items-center justify-center'>
+                    <button className='flex w-full items-center justify-center' onClick={() => setModalTransacaoAberto(true)}>
                         <MdAdd className='w-8 h-8' />
                         <span className='md:hidden lg:block'>Nova Transação</span>
                     </button>
@@ -156,6 +162,8 @@ export default function Principal() {
                 </main>
 
             </section>
+
+            <TransacaoModal modalAberto={modalTransacaoAberto} fecharModal={fecharTransacaoModal} />
         </div>
     );
 }
