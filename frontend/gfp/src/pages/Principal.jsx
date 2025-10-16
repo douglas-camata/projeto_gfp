@@ -11,6 +11,7 @@ import Contas from './Contas';
 import CadContas from './CadContas';
 import Categorias from './Categorias';
 import TransacaoModal from './TransacaoModal';
+import Transacoes from './Transacoes';
 
 export default function Principal() {
     const { dadosUsuario, setDadosUsuario, carregando } = useContext(UsuarioContext);
@@ -158,6 +159,7 @@ export default function Principal() {
                         <Route path='/contas' element={<Contas />} />
                         <Route path='/cadcontas' element={<CadContas />} />
                         <Route path='/categorias' element={<Categorias />} />
+                        <Route path='/transacoes' element={<Transacoes />} />
                     </Routes>
                 </main>
 

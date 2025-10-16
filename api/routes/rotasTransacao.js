@@ -2,7 +2,7 @@ import { BD } from "../db.js";
 
 class rotasTransacao {
   static async novaTransacao(req, res) {
-    const { valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario} = req.body;
+    const { valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario } = req.body;
     try {
       const transacao = await BD.query(`
                 INSERT INTO transacoes (valor, descricao, data_vencimento, data_pagamento, tipo, id_conta, id_categoria, id_subcategoria, id_usuario)
@@ -19,14 +19,20 @@ class rotasTransacao {
 
   static async listarTransacao(req, res) {
     try {
+      //Obtendo as datas enviadas no Parametro da URL
+      const { dataInicio, dataFim } = req.query;
+      // const dataInicio = req.query.dataInicio;
+      // const dataFim = req.query.dataFim;
+
       const transacoes = await BD.query(`
             SELECT t. *, u.nome AS nome_usuario, lt.nome AS nome_localTransacao, ct.nome AS nome_categoria, sct.nome AS nome_subcategoria 
-            	FROM transacoes AS t 
-            	LEFT JOIN usuarios u ON t.id_usuario = u.id_usuario 
+            FROM transacoes AS t 
+            LEFT JOIN usuarios u ON t.id_usuario = u.id_usuario 
             	JOIN contas lt on t.id_conta = lt.id_conta
             	JOIN categorias ct on t.id_categoria = ct.id_categoria
             	JOIN subcategorias sct on t.id_subcategoria = sct.id_subcategoria
-            ORDER BY t.valor DESC`);
+            WHERE t.data_vencimento BETWEEN $1 AND $2
+            ORDER BY t.data_vencimento`, [dataInicio, dataFim]);
       res.status(200).json(transacoes.rows);
     } catch (error) {
       console.error("Erro ao listar locais:", error);

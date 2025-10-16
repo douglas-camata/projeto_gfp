@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UsuarioContext } from '../UsuarioContext'
-import { enderecoServidor } from '../utils'
+import { enderecoServidor, nomesTipoConta, iconesTipoConta } from '../utils'
 import { MdAdd, MdEdit, MdDelete, MdCreditCard, MdAccountBalance, MdEmail, MdFeaturedPlayList, MdAttachMoney, MdAutoGraph } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom'
 import Estilos from '../styles/Estilos'
@@ -10,24 +10,6 @@ export default function Contas() {
     const [dadosLista, setDadosLista] = useState([]);
 
     const navigate = useNavigate();
-
-    const iconesTipoConta = {
-        'CONTA_CORRENTE': <MdAccountBalance className="w-6 h-6" />,
-        'POUPANCA': <MdEmail className="w-6 h-6" />,
-        'CARTÃO_CREDITO': <MdCreditCard className="w-6 h-6" />,
-        'CARTAO_DEBITO': <MdFeaturedPlayList className="w-6 h-6" />,
-        'DINHEIRO': <MdAttachMoney className="w-6 h-6" />,
-        'INVESTIMENTO': <MdAutoGraph className="w-6 h-6" />,
-    }
-
-    const nomesTipoConta = {
-        'CONTA_CORRENTE': 'Conta Corrente',
-        'POUPANCA': 'Poupança',
-        'CARTÃO_CREDITO': 'Cartão de Crédito',
-        'CARTAO_DEBITO': 'Cartão de Débito',
-        'DINHEIRO': 'Dinheiro',
-        'INVESTIMENTO': 'Investimento',
-    }
 
     const buscarDadosAPI = async () => {
         try {
