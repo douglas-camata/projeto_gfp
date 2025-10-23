@@ -17,6 +17,93 @@ class rotasTransacao {
     }
   }
 
+  static async dadosDashboard(req, res) {
+    try {
+      const { dataInicio, dataFim } = req.query;
+
+      // Query para os Indicadores (KPIs)
+      const kpisQuery = `
+        SELECT
+          COALESCE(SUM(CASE WHEN tipo = 'ENTRADA' THEN valor ELSE 0 END), 0) as receitas,
+          COALESCE(SUM(CASE WHEN tipo = 'SAIDA' THEN valor ELSE 0 END), 0) as despesas
+        FROM transacoes
+        WHERE data_vencimento BETWEEN $1 AND $2
+      `
+
+      // Query para o Gráfico de Categorias
+      const categoriasQuery = ` 
+        SELECT c.nome, SUM(t.valor)::float as valor
+        FROM transacoes as t 
+          INNER JOIN categorias as c ON t.id_categoria = c.id_categoria
+        WHERE t.data_vencimento BETWEEN $1 AND $2
+        GROUP BY c.nome
+        ORDER BY valor DESC
+      `
+
+      // Query para o Gráfico de Categorias
+      const subcategoriasQuery = ` 
+        SELECT s.nome, SUM(t.valor)::float as valor
+        FROM transacoes as t 
+          INNER JOIN subcategorias as s ON t.id_subcategoria = s.id_subcategoria
+        WHERE t.data_vencimento BETWEEN $1 AND $2
+        GROUP BY s.nome
+        ORDER BY valor DESC
+      `
+
+      // Query para a listagem de últimos vencimentos
+      const vencimentoQuery = `
+        SELECT t.valor, t.data_vencimento, t.descricao, sct.nome AS nome_subcategoria, ct.icone, ct.cor
+            FROM transacoes AS t 
+            	JOIN categorias ct on t.id_categoria = ct.id_categoria
+            	JOIN subcategorias sct on t.id_subcategoria = sct.id_subcategoria
+            WHERE t.data_vencimento BETWEEN $1 AND $2 AND t.data_pagamento IS NULL
+            ORDER BY t.data_vencimento 
+      `
+
+      const evolucao6mesesQuery = `
+        SELECT
+            TO_CHAR(t.data_vencimento, 'MM/YYYY') AS mes,
+            SUM(CASE WHEN t.tipo = 'ENTRADA' THEN t.valor ELSE 0 END) AS total_receitas,
+            SUM(CASE WHEN t.tipo = 'SAIDA' THEN t.valor ELSE 0 END) AS total_despesas
+        FROM transacoes AS t
+        JOIN categorias ct ON t.id_categoria = ct.id_categoria
+        JOIN subcategorias sct ON t.id_subcategoria = sct.id_subcategoria
+        WHERE 
+            t.data_vencimento >= (CURRENT_DATE - INTERVAL '6 months')
+        GROUP BY TO_CHAR(t.data_vencimento, 'MM/YYYY')
+        ORDER BY TO_DATE(TO_CHAR(t.data_vencimento, 'MM/YYYY'), 'MM/YYYY');
+      `
+
+      // const kpis = await BD.query(kpisQuery, [dataInicio, dataFim]);
+      // const categorias = await BD.query(categoriasQuery, [dataInicio, dataFim]);
+      // const subcategorias = await BD.query(subcategoriasQuery, [dataInicio, dataFim]);
+      // const vencimentos = await BD.query(vencimentoQuery, [dataInicio, dataFim]);
+      // const evolucao6meses = await BD.query(evolucao6mesesQuery);
+
+      //Executando todas as queries em paralelo para otimizar
+      const [kpis, categorias, subcategorias, vencimentos, evolucao6meses] = await Promise.all(
+        [
+          BD.query(kpisQuery, [dataInicio, dataFim]),
+          BD.query(categoriasQuery, [dataInicio, dataFim]),
+          BD.query(subcategoriasQuery, [dataInicio, dataFim]),
+          BD.query(vencimentoQuery, [dataInicio, dataFim]),
+          BD.query(evolucao6mesesQuery),
+        ]);
+
+      res.status(200).json({
+        kpis: kpis.rows[0],
+        categorias: categorias.rows,
+        subcategorias: subcategorias.rows,
+        vencimentos: vencimentos.rows,
+        evolucao6meses: evolucao6meses.rows
+      })
+
+    } catch (error) {
+      console.error("Erro ao listar dados:", error);
+      res.status(500).json({ message: "Erro ao listar dados", error: error.message });
+    }
+  }
+
   static async listarTransacao(req, res) {
     try {
       //Obtendo as datas enviadas no Parametro da URL
@@ -25,7 +112,7 @@ class rotasTransacao {
       // const dataFim = req.query.dataFim;
 
       const transacoes = await BD.query(`
-            SELECT t. *, u.nome AS nome_usuario, lt.nome AS nome_localTransacao, ct.nome AS nome_categoria, sct.nome AS nome_subcategoria 
+            SELECT t.*, u.nome AS nome_usuario, lt.nome AS nome_conta, ct.nome AS nome_categoria, sct.nome AS nome_subcategoria, ct.cor, ct.icone 
             FROM transacoes AS t 
             LEFT JOIN usuarios u ON t.id_usuario = u.id_usuario 
             	JOIN contas lt on t.id_conta = lt.id_conta

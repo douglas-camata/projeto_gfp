@@ -2,6 +2,8 @@ import { Md4K, MdAccountBalance, MdAttachMoney, MdAutoGraph, MdCreditCard, MdDir
 
 export const enderecoServidor = 'http://localhost:3000'
 
+export const CORES_GRAFICO = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+
 export const listaCores = ['#FF5733', '#FFC300', '#DAF7A6', '#33FF57', '#33A1FF', '#8D33FF', '#FF33EC', '#FF33A1', '#33FFF6', '#FF7F50'];
 export const listaIcones = ['restaurant', 'directions-car', 'school', 'home', 'sports-soccer',
     'shopping-cart', 'pets', 'favorite', 'fitness-center', 'wallet', '4k'];
@@ -60,7 +62,7 @@ export const calcularDatasPeriodo = (periodo) => {
             dataInicio.setDate(hoje.getDate() - 29);
             dataFim = hoje;
             break;
-        case 'Todos': 
+        case 'Todos':
             dataInicio = new Date(2000, 1, 1);
             dataFim = new Date(2100, 12, 31);
             break;
@@ -71,3 +73,13 @@ export const calcularDatasPeriodo = (periodo) => {
 
     return { dataInicio, dataFim }
 }
+
+export const formatarDinheiro = (valor) => {
+    valor = Number(valor);
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+export const formatarData = (data) => {
+        const dataFormatada = new Date(data);
+        return dataFormatada.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    }

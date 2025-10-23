@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UsuarioContext } from '../UsuarioContext'
-import { enderecoServidor, nomesTipoConta, iconesTipoConta, iconesCategoria, calcularDatasPeriodo } from '../utils'
+import { enderecoServidor, nomesTipoConta, iconesTipoConta, iconesCategoria, calcularDatasPeriodo, formatarData } from '../utils'
 import { MdAdd, MdEdit, MdDelete, MdCreditCard, MdAccountBalance, MdEmail, MdFeaturedPlayList, MdAttachMoney, MdAutoGraph, MdDone, MdCheckCircle, MdError, MdAccessTime, MdSearch } from 'react-icons/md';
 import { data, useNavigate } from 'react-router-dom'
 import Estilos from '../styles/Estilos'
@@ -123,11 +123,6 @@ export default function Transacoes() {
             }
         }
         return status
-    }
-
-    const formatarData = (data) => {
-        const dataFormatada = new Date(data);
-        return dataFormatada.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
     }
 
     const exibirItemLista = (item) => {

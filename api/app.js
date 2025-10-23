@@ -63,6 +63,7 @@ app.patch('/contas/:id', autenticarToken, rotasContas.atualizar);
 
 // Rotas de transação {autenticarToken}
 app.get('/transacoes', autenticarToken, rotasTransacao.listarTransacao);
+app.get('/transacoes/dadosDashboard', rotasTransacao.dadosDashboard);
 app.post('/transacoes', autenticarToken, rotasTransacao.novaTransacao);
 app.delete('/transacoes/:id', autenticarToken, rotasTransacao.deletarTransacao);
 app.get('/transacoes/:id', autenticarToken, rotasTransacao.consultaPorId);
