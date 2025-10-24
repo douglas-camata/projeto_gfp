@@ -3,6 +3,7 @@ import Principal from './Principal'
 import { corSecundaria } from '../styles/Estilos';
 import Contas from './Contas';
 import Categorias from './Categorias';
+import Transacoes from './Transacoes';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,7 @@ export default function MenuDrawer() {
             }}
         >
             <Drawer.Screen name="Principal" component={Principal} />
+            <Drawer.Screen name="Transacoes" component={Transacoes} />
             <Drawer.Screen name="Contas" component={Contas} />
             <Drawer.Screen name="Categorias" component={Categorias} />
             
