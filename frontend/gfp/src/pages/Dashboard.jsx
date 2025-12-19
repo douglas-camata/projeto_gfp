@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UsuarioContext } from '../UsuarioContext'
-import { enderecoServidor, nomesTipoConta, iconesTipoConta, iconesCategoria, calcularDatasPeriodo, listaCores, CORES_GRAFICO, formatarDinheiro, formatarData } from '../utils'
+import { enderecoServidor, nomesTipoConta, iconesTipoConta, iconesCategoria, calcularDatasPeriodo, listaCores, formatarDinheiro, formatarData } from '../utils'
 import { MdAdd, MdEdit, MdDelete, MdCreditCard, MdAccountBalance, MdEmail, MdFeaturedPlayList, MdAttachMoney, MdAutoGraph, MdDone, MdCheckCircle, MdError, MdAccessTime, MdSearch, MdAutoAwesome, MdTrendingUp, MdTrendingDown, MdWallet } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -220,7 +220,7 @@ export default function Dashboard() {
                                 <Pie data={dadosDashboard.categorias} dataKey={"valor"} nameKey={"nome"} label={(item) => item.nome}>
                                     {
                                         dadosDashboard.categorias.map((item, index) => (
-                                            <Cell key={index} fill={CORES_GRAFICO[index % CORES_GRAFICO.length]} />
+                                            <Cell key={index} fill={listaCores[index % listaCores.length]} />
                                         ))
                                     }
                                     <Tooltip />
@@ -242,7 +242,7 @@ export default function Dashboard() {
                                 <Pie data={dadosDashboard.subcategorias} dataKey={"valor"} nameKey={"nome"} label={(item) => item.nome}>
                                     {
                                         dadosDashboard.subcategorias.map((item, index) => (
-                                            <Cell key={index} fill={CORES_GRAFICO[index % CORES_GRAFICO.length]} />
+                                            <Cell key={index} fill={listaCores[index % listaCores.length]} />
                                         ))
                                     }
                                     <Tooltip />

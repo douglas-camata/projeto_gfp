@@ -1,6 +1,6 @@
 import { Md4K, MdAccountBalance, MdAttachMoney, MdAutoGraph, MdCreditCard, MdDirectionsCar, MdEmail, MdFavorite, MdFeaturedPlayList, MdFitnessCenter, MdHome, MdPets, MdRestaurant, MdSchool, MdShoppingCart, MdSportsSoccer, MdWallet } from "react-icons/md";
 
-export const enderecoServidor = 'http://localhost:3000'
+export const enderecoServidor = 'http://192.168.2.105:3000'
 
 export const CORES_GRAFICO = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 

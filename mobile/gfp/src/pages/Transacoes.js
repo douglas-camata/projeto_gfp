@@ -36,7 +36,7 @@ export default function Transacoes({ navigation }) {
 
     const buscarDadosAPI = async () => {
         try {
-            setUsuario(await buscarUsuarioLogado());
+            // setUsuario(await buscarUsuarioLogado());
             if (!usuario.token) return;
 
             //Calcula e gera as datas de acordo com o filtro período selecionado 

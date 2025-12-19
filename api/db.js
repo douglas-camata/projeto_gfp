@@ -5,7 +5,7 @@ const { Pool } = pg;
 dotenv.config()
 
 // const BD = new Pool({
-//     connectionString: "postgres://postgres.sguugivenyucuyfaegcl:uJ41uOtbuqQJXzV2@aws-0-sa-east-1.pooler.supabase.com:5432/postgres",
+//     connectionString: "postgres://postgres.mqummcywcufspxnsnbfw:7BJO09KfLcBzT3sX@aws-1-us-east-1.pooler.supabase.com:5432/postgres",
 //     ssl:{
 //         rejectUnauthorized: false
 //     }
